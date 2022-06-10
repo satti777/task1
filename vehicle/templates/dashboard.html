@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" type="text/css"
+          href="">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row mt-5">
+
+
+        <div class="col">
+
+            <select name="category" id="category" class="form-control">
+                <option value="">All</option>
+                {% for obj in category %}
+                <option value="{{obj.id}}">{{obj.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col">
+
+            <input type="" name="name" id="name" class="form-control" placeholder="Name">
+        </div>
+        <div class="col">
+
+            <input type="" name="color" id="color" class="form-control" placeholder="Color">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+
+            <input type="" name="model" id="model" class="form-control" placeholder="Model">
+        </div>
+        <div class="col"><input type="" name="registration_no" id="registration" class="form-control"
+                                placeholder="Registration No"></div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" onclick="filter()">Apply</button>
+        </div>
+
+
+    </div>
+
+    <div class="row mt-4"></div>
+
+
+    <table id="example" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Color</th>
+            <th>Model</th>
+
+            <th>Registration No</th>
+            <th>category</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        <tr>
+
+        </tr>
+
+        </tbody>
+        <!-- <tfoot>
+            <tr>
+                 <th>Name</th>
+                <th>Color</th>
+                <th>Model</th>
+                <th>Age</th>
+                <th>Registration No</th>
+                <th>category</th>
+            </tr>
+        </tfoot> -->
+    </table>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+  
+
+function filter(){
+ 
+
+
+var category=$("#category").val();
+var name=$("#name").val();
+var color=$("#color").val();
+var registration=$("#registration").val();
+var model=$("#model").val();
+const path="/api/VehicleList/?category="+category+"&name="+name+"&color="+color+"&registration_no="+registration+"&model="+model;
+
+
+
+ $('#example').DataTable( {
+        destroy : true,
+        ajax: {
+        "processing":true,
+        url: path,
+        "dataSrc":"",
+        },
+ 
+ 
+        columns: [
+            {"mData":"name"},
+            {"mData":"color"},
+            {"mData":"model"},
+            {"mData":"registration_no"},
+            {"mData":"category"},
+            ]
+        } );
+
+ 
+ 
+
+}
+
+filter();
+
+
+
+
+</script>
+
+</body>
+</html>
